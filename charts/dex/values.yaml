@@ -86,3 +86,11 @@ connectors:
       clientID:
       clientSecret:
       orgs:
+  google:
+    config:
+      type: oidc
+      name: Google
+      clientID:
+      clientSecret:
+      issuer:
+ 

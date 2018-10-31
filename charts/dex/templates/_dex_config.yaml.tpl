@@ -21,6 +21,7 @@ grpc:
 {{- end }}
 connectors:
 {{- range $id, $connector := .Values.connectors }}
+{{- if ( $connector.config.clientID ) and ( $connector.config.clientSecret ) }}
 - type: {{ $connector.config.type }}
   id: {{ $id }}
   name: {{ $connector.config.name }}
@@ -28,9 +29,15 @@ connectors:
     clientID: {{ $connector.config.clientID }}
     clientSecret: {{ $connector.config.clientSecret }}
     redirectURI: https://{{ $issuerDomain }}/callback
+{{- if $connector.config.issuer }}
+    issuer: {{ $connector.config.issuer }}
+{{- end }}
+{{- if $connector.config.orgs }}
     orgs:
 {{- range $connector.config.orgs }}
       - name: {{ . }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 oauth2:
